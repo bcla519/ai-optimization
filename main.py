@@ -18,35 +18,35 @@ pd.set_option('display.max_columns', None) # show all columns
 # Exploratory Data Analysis (EDA)
 # Histograms for all features
 # Notice month column is a single number --> month == irrelevant column
-# df.select_dtypes("number").hist(bins = 20, figsize = (12,24), edgecolor = "black", layout = (10, 4))
-# plt.subplots_adjust(hspace = 0.8, wspace = 0.8)
-# plt.show()
+df.select_dtypes("number").hist(bins = 20, figsize = (12,24), edgecolor = "black", layout = (10, 4))
+plt.subplots_adjust(hspace = 0.8, wspace = 0.8)
+plt.show()
 
 # Box Plots for all features
-# df.select_dtypes("number").plot(kind='box', subplots = True, figsize = (12,24), layout = (10, 4))
+df.select_dtypes("number").plot(kind='box', subplots = True, figsize = (12,24), layout = (10, 4))
 
 # Scatter Plots of all features against Health Risk Score
 # Find patterns, trends, clusters, or outliers
-# numerical_cols = df.select_dtypes("number").columns.values
-# numerical_cols = numerical_cols[:-1]  # Get rid of Health Risk Score column
-# fig, axes = plt.subplots(nrows = 9, ncols = 4, figsize = (12,24))
-# plt.subplots_adjust(hspace = 0.5, wspace = 0.3)
-# current_column = 0 # track which column from numerical_cols loop is currently on
-# for i in range(9):
-#     for j in range(4):
-#         if current_column < len(numerical_cols):
-#             axes[i, j].scatter(df[numerical_cols[current_column]], df['healthRiskScore'], s=10)
-#             axes[i, j].set_title(numerical_cols[current_column])
-#             current_column += 1
-#         else:
-#             break
-# plt.show()
+numerical_cols = df.select_dtypes("number").columns.values
+numerical_cols = numerical_cols[:-1]  # Get rid of Health Risk Score column
+fig, axes = plt.subplots(nrows = 9, ncols = 4, figsize = (12,24))
+plt.subplots_adjust(hspace = 0.5, wspace = 0.3)
+current_column = 0 # track which column from numerical_cols loop is currently on
+for i in range(9):
+    for j in range(4):
+        if current_column < len(numerical_cols):
+            axes[i, j].scatter(df[numerical_cols[current_column]], df['healthRiskScore'], s=10)
+            axes[i, j].set_title(numerical_cols[current_column])
+            current_column += 1
+        else:
+            break
+plt.show()
 
 # Heat Map for Multicollinearity
-# correlation_matrix = df.corr(numeric_only=True)
-# plt.figure(figsize = (20,12))
-# sns.heatmap(correlation_matrix, annot=True, cmap="coolwarm", fmt='.2f')
-# plt.show()
+correlation_matrix = df.corr(numeric_only=True)
+plt.figure(figsize = (20,12))
+sns.heatmap(correlation_matrix, annot=True, cmap="coolwarm", fmt='.2f')
+plt.show()
 
 # Drop columns from heat map that have > 0.8 correlation
 highly_correlated_columns = ['tempmax', 'tempmin', 'feelslikemax', 'feelslikemin', 'feelslike', 'windgust',
@@ -58,10 +58,10 @@ irrelevant_cols = ['datetimeEpoch', 'month', 'dayOfWeek', 'isWeekend']
 df.drop(columns = irrelevant_cols, inplace = True)
 
 # Updated Heat Map for Multicollinearity
-# correlation_matrix = df.corr(numeric_only=True)
-# plt.figure(figsize = (20,12))
-# sns.heatmap(correlation_matrix, annot=True, cmap="coolwarm", fmt='.2f')
-# plt.show()
+correlation_matrix = df.corr(numeric_only=True)
+plt.figure(figsize = (20,12))
+sns.heatmap(correlation_matrix, annot=True, cmap="coolwarm", fmt='.2f')
+plt.show()
 
 # Standardization for all features except target variable (Health Risk Score)
 feature_cols = df.select_dtypes("number").columns.values
